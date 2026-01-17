@@ -1,0 +1,136 @@
+// Rescue and Surveillance Drone Prototype CAD
+// Based on project components: F450 Frame, Raspberry Pi, SG90 Servo Gripper
+
+$fn = 50;
+
+// --- Parameters ---
+arm_length = 150;
+center_plate_dia = 100;
+motor_dia = 28; // 2212 920KV Motor
+prop_dia = 240; // 9450 Propeller (~9.4 inches)
+
+// --- Colors ---
+frame_color = [0.2, 0.2, 0.2]; // Dark Grey PCB
+motor_color = [0.7, 0.7, 0.7]; // Silver
+pi_color = [0.1, 0.5, 0.1];    // Green PCB
+gripper_color = [1, 0.5, 0];   // Orange
+
+module drone_assembly() {
+    // 1. F450 Frame & Center Plates (Source 50)
+    color(frame_color) {
+        cylinder(h=3, d=center_plate_dia, center=true); // Bottom Plate
+        translate([0,0,30]) cylinder(h=3, d=center_plate_dia, center=true); // Top Plate
+        
+        // Four Arms
+        for(a = [45:90:315]) {
+            rotate([0,0,a])
+            translate([center_plate_dia/2, -10, -1.5])
+            cube([arm_length, 20, 10]);
+        }
+    }
+
+    // 2. Motors and Propellers (Source 56, 61)
+    for(a = [45:90:315]) {
+        rotate([0,0,a])
+        translate([arm_length + center_plate_dia/2 - 15, 0, 8]) {
+            // Motor
+            color(motor_color) cylinder(h=20, d=motor_dia);
+            // Propeller (Simplified)
+            translate([0,0,22]) color([1,1,1,0.5]) 
+                cube([prop_dia, 15, 2], center=true);
+        }
+    }
+
+    // 3. Raspberry Pi & Camera (Source 32, 78)
+    translate([0, 0, 35]) {
+        color(pi_color) cube([85, 56, 2], center=true); // Raspberry Pi 4
+        // Camera Module
+        translate([35, 0, 5]) color([0,0,0]) cube([10, 25, 10], center=true); 
+    }
+
+    // 4. GPS Module (Source 82)
+    translate([-20, 0, 45]) {
+        color([0.3, 0.3, 0.3]) cube([35, 35, 5], center=true); // NEO-M8N
+        cylinder(h=40, d=4); // GPS Stand
+    }
+
+    // 5. Servo-Driven Gripper (Source 15, 80)
+    translate([0, 0, -15]) {
+        color([0,0,1]) cube([23, 12, 22], center=true); // SG90 Servo
+        // Simplified Gripper Arms
+        color(gripper_color) {
+            translate([10, 0, -10]) rotate([0,20,0]) cube([5, 15, 30], center=true);
+            translate([-10, 0, -10]) rotate([0,-20,0]) cube([5, 15, 30], center=true);
+        }
+    }
+}
+
+drone_assembly();
+// Rescue and Surveillance Drone Prototype CAD
+// Based on project components: F450 Frame, Raspberry Pi, SG90 Servo Gripper
+
+$fn = 50;
+
+// --- Parameters ---
+arm_length = 150;
+center_plate_dia = 100;
+motor_dia = 28; // 2212 920KV Motor
+prop_dia = 240; // 9450 Propeller (~9.4 inches)
+
+// --- Colors ---
+frame_color = [0.2, 0.2, 0.2]; // Dark Grey PCB
+motor_color = [0.7, 0.7, 0.7]; // Silver
+pi_color = [0.1, 0.5, 0.1];    // Green PCB
+gripper_color = [1, 0.5, 0];   // Orange
+
+module drone_assembly() {
+    // 1. F450 Frame & Center Plates (Source 50)
+    color(frame_color) {
+        cylinder(h=3, d=center_plate_dia, center=true); // Bottom Plate
+        translate([0,0,30]) cylinder(h=3, d=center_plate_dia, center=true); // Top Plate
+        
+        // Four Arms
+        for(a = [45:90:315]) {
+            rotate([0,0,a])
+            translate([center_plate_dia/2, -10, -1.5])
+            cube([arm_length, 20, 10]);
+        }
+    }
+
+    // 2. Motors and Propellers (Source 56, 61)
+    for(a = [45:90:315]) {
+        rotate([0,0,a])
+        translate([arm_length + center_plate_dia/2 - 15, 0, 8]) {
+            // Motor
+            color(motor_color) cylinder(h=20, d=motor_dia);
+            // Propeller (Simplified)
+            translate([0,0,22]) color([1,1,1,0.5]) 
+                cube([prop_dia, 15, 2], center=true);
+        }
+    }
+
+    // 3. Raspberry Pi & Camera (Source 32, 78)
+    translate([0, 0, 35]) {
+        color(pi_color) cube([85, 56, 2], center=true); // Raspberry Pi 4
+        // Camera Module
+        translate([35, 0, 5]) color([0,0,0]) cube([10, 25, 10], center=true); 
+    }
+
+    // 4. GPS Module (Source 82)
+    translate([-20, 0, 45]) {
+        color([0.3, 0.3, 0.3]) cube([35, 35, 5], center=true); // NEO-M8N
+        cylinder(h=40, d=4); // GPS Stand
+    }
+
+    // 5. Servo-Driven Gripper (Source 15, 80)
+    translate([0, 0, -15]) {
+        color([0,0,1]) cube([23, 12, 22], center=true); // SG90 Servo
+        // Simplified Gripper Arms
+        color(gripper_color) {
+            translate([10, 0, -10]) rotate([0,20,0]) cube([5, 15, 30], center=true);
+            translate([-10, 0, -10]) rotate([0,-20,0]) cube([5, 15, 30], center=true);
+        }
+    }
+}
+
+drone_assembly();
